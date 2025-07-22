@@ -1,0 +1,13 @@
+laser:
+  degree_horizontal: 180
+  degree_vertical: 30
+  depth_image_width: 180
+  depth_image_height: 16
+  distance_min: 0.15
+  distance_max: 10.0
+
+visualization:
+  enable: true
+  window_name: "Depth Image"
+  scale_x: 5
+  scale_y: 10

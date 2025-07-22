@@ -1,0 +1,3 @@
+controller:
+  name: wheel_controller
+  freedom_degrees: 2

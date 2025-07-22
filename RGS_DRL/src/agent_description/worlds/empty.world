@@ -1,0 +1,52 @@
+<!-- <?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/</namespace>
+        <service>set_entity_state</service>
+      </ros>
+      <update_rate>100.0</update_rate>
+    </plugin>
+  </world>
+</sdf> -->
+
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+
+    <!-- 倍速仿真的物理引擎 -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size> <!-- 每一步的时间间隔 -->
+      <!-- <real_time_factor>1.0</real_time_factor> -->
+      <real_time_update_rate>1000</real_time_update_rate> <!-- 更新频率 -->
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+
+    <!-- 全局光源 -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- 地面平面 -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- ROS 状态插件 -->
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/</namespace>
+        <service>set_entity_state</service>
+      </ros>
+      <update_rate>100.0</update_rate>
+    </plugin>
+  </world>
+</sdf>

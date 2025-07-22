@@ -1,0 +1,12 @@
+model:
+  type: new # new / load
+  path: [checkpoints]
+  name: 2025-06-28_17-46-50.pt
+
+trainer:
+  state_topic: /depth_image
+  action_topic: /control_matrix
+  max_steps: 500
+  log_interval: 10
+  save_interval: 1000
+  use_image_state: true

@@ -1,0 +1,177 @@
+<sdf version='1.7'>
+  <model name='ackerman'>
+    <link name='body_link'>
+      <inertial>
+        <pose>0.114286 0 0.047619 0 -0 0</pose>
+        <mass>2.1</mass>
+        <inertia>
+          <ixx>0.0207881</ixx>
+          <ixy>0</ixy>
+          <ixz>-0.000571429</ixz>
+          <iyy>0.0221595</iyy>
+          <iyz>0</iyz>
+          <izz>0.0214714</izz>
+        </inertia>
+      </inertial>
+      <collision name='body_link_fixed_joint_lump__body_collision_collision'>
+        <pose>0.09 0 0.03 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.1</length>
+            <radius>0.15</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='body_link_fixed_joint_lump__laserbase_link_collision_1'>
+        <pose>0.12 0 0.035 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.03</length>
+            <radius>0.02</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='body_link_fixed_joint_lump__laser_link_collision_2'>
+        <pose>0.12 0 0.065 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.03</length>
+            <radius>0.02</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='body_link_visual'>
+        <pose>0.1 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.26 0.09 0.04</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='body_link_fixed_joint_lump__laserbase_link_visual_1'>
+        <pose>0.12 0 0.035 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.03</length>
+            <radius>0.02</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+      <visual name='body_link_fixed_joint_lump__laser_link_visual_2'>
+        <pose>0.12 0 0.065 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.03</length>
+            <radius>0.02</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheelRL_continuous' type='revolute'>
+      <pose relative_to='body_link'>0 0 0 0 -0 0</pose>
+      <parent>body_link</parent>
+      <child>wheelRL_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheelRL_link'>
+      <pose relative_to='wheelRL_continuous'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.01</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.01</iyy>
+          <iyz>0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheelRL_link_collision'>
+        <pose>0 0.075 -0.015 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.026</length>
+            <radius>0.03</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='wheelRL_link_visual'>
+        <pose>0 0.075 -0.015 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.026</length>
+            <radius>0.03</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheelRR_continuous' type='revolute'>
+      <pose relative_to='body_link'>0 0 0 0 -0 0</pose>
+      <parent>body_link</parent>
+      <child>wheelRR_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheelRR_link'>
+      <pose relative_to='wheelRR_continuous'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.01</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.01</iyy>
+          <iyz>0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheelRR_link_collision'>
+        <pose>0 -0.075 -0.015 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.026</length>
+            <radius>0.03</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='wheelRR_link_visual'>
+        <pose>0 -0.075 -0.015 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.026</length>
+            <radius>0.03</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <frame name='laser_joint' attached_to='laserbase_link'>
+      <pose>0 0 0.03 0 -0 0</pose>
+    </frame>
+    <frame name='laser_link' attached_to='laser_joint'/>
+    <frame name='laserbase_joint' attached_to='body_link'>
+      <pose>0.12 0 0.035 0 -0 0</pose>
+    </frame>
+    <frame name='laserbase_link' attached_to='laserbase_joint'/>
+  </model>
+</sdf>

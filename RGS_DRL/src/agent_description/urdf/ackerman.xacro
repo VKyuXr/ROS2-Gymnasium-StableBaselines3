@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<robot name="ackerman" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="steeringless_wheel" params="x y name parent">
+
+        <joint name="${name}_continuous" type="continuous">
+            <origin xyz="${x} ${y} -0.015" rpy="-1.570796 0 0"/>
+            <parent link="body_link"/>
+            <child link="${name}_link"/>
+            <axis xyz="0 0 1"/>
+        </joint>
+
+        <link name="${name}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.03" length="0.026"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.03" length="0.026"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+        </link>
+
+    </xacro:macro>
+
+    <xacro:macro name="steering_wheel" params="x y name parent">
+
+        <joint name="${name}_steering_revolute" type="revolute">
+            <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+            <parent link="${parent}"/>
+            <child link="${name}_steering_link"/>
+            <axis xyz="0 0 1"/>
+            <limit lower="-1.0" upper="1.0" effort="10" velocity="1.0"/>
+        </joint>
+
+        <link name="${name}_steering_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.005" length="0.05"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.005" length="0.05"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.01"/>
+                <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+            </inertial>
+        </link>
+
+        <joint name="${name}_joint" type="continuous">
+                <origin xyz="0 0 -0.015" rpy="1.570796 0 0"/>
+            <parent link="${name}_steering_link"/>
+            <child link="${name}_link"/>
+            <axis xyz="0 0 1"/>
+        </joint>
+
+        <link name="${name}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.03" length="0.026"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.03" length="0.026"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+        </link>
+
+    </xacro:macro>
+
+    <link name="body_link">
+        <visual>
+            <origin xyz="0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <!-- <box size="0.26 0.09 0.04"/> -->
+                <box size="0.24 0.09 0.04"/>
+            </geometry>
+        </visual>
+        <collision name="body_collision">
+            <origin xyz="0.09 0.0 0.03" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.15" length="0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="5"/>
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+        </inertial>
+    </link>
+
+    <joint name="laserbase_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="laserbase_link"/>
+        <origin xyz="0.12 0 0.035" rpy="0 0 0"/>
+    </joint>
+
+    <link name="laserbase_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.03"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.03"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+    </link>
+
+    <joint name="laser_joint" type="fixed">
+        <parent link="laserbase_link"/>
+        <child link="laser_link"/>
+        <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    </joint>
+
+    <link name="laser_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.03"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.03"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+    </link>
+
+    <xacro:steeringless_wheel x="0" y="0.075" name="wheelRL" parent="body_link"/>
+    <xacro:steeringless_wheel x="0" y="-0.075" name="wheelRR" parent="body_link"/>
+    <xacro:steering_wheel x="0.15" y="0" name="wheelFC" parent="body_link"/>
+    <!-- <xacro:steering_wheel x="0.15" y="-0.075" name="wheelFR" parent="body_link"/> -->
+
+    <!-- 配置 ROS2 Control -->
+    <ros2_control name="GazeboSystem" type="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+        <joint name="wheelRL_continuous">
+            <command_interface name="velocity">
+                <param name="min">-10</param>   <!-- rad/s -->
+                <param name="max">10</param>    <!-- rad/s -->
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="wheelRR_continuous">
+            <command_interface name="velocity">
+                <param name="min">-10</param>   <!-- rad/s -->
+                <param name="max">10</param>    <!-- rad/s -->
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="wheelFC_steering_revolute">
+            <command_interface name="position">
+                <param name="min">-1</param>   <!-- rad/s -->
+                <param name="max">1</param>    <!-- rad/s -->
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+
+    <!-- Gazebo 通用插件 -->
+    <gazebo>
+        <!-- 位姿输出 -->
+        <plugin name="gazebo_ros_p3d" filename="libgazebo_ros_p3d.so">
+            <!-- /odom -->
+            <alwaysOn>true</alwaysOn>
+            <updateRate>50.0</updateRate>
+            <body_name>wheelFC_steering_link</body_name>
+            <gaussianNoise>0.0</gaussianNoise>
+        </plugin>
+
+        <!-- 控制输入 -->
+        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+            <!-- /{controller_name}/commands -->
+            <parameters>$(find agent_description)/config/MAV_controller.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+    <!-- 激光雷达插件 -->
+    <gazebo reference="laser_link">
+        <sensor type="ray" name="lidar_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>true</visualize>
+            <update_rate>40</update_rate>               <!-- 更新率 40Hz -->
+            <ray>
+                <scan>
+                    <horizontal>                        <!-- 水平方向 -->
+                        <samples>180</samples>          <!-- 180 线 -->
+                        <min_angle>-1.5708</min_angle>  <!-- -180 度 -->
+                        <max_angle>1.5708</max_angle>   <!-- 180 度 -->
+                    </horizontal>
+                    <vertical>                          <!-- 垂直方向 -->
+                        <samples>16</samples>           <!-- 16 线 -->
+                        <min_angle>-0.2618</min_angle>  <!-- -15 度 -->
+                        <max_angle>0.2618</max_angle>   <!-- 15 度 -->
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.15</min>                     <!-- 最小探测距离 0.14m -->
+                    <max>10.0</max>                     <!-- 最大探测距离 10m -->
+                    <resolution>0.01</resolution>       <!-- 分辨率 0.01m -->
+                </range>
+            </ray>
+            <plugin name="gazebo_ros_lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+                <!-- /gazebo_ros_lidar_controller/out -->
+                <frame_name>laser_link</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- 碰撞检测插件 -->
+    <gazebo reference="body_link">
+        <selfCollide>false</selfCollide>
+        <sensor name="base_contact_sensor" type="contact">
+            <always_on>true</always_on>
+            <update_rate>100.0</update_rate>
+            <contact>
+                <collision>body_link_fixed_joint_lump__body_collision_collision</collision> <!-- 这个名字需要将xacro/urdf 转换为 sdf，使用 sdf 中的 collision 名字 -->
+            </contact>
+            <plugin filename="libgazebo_ros_bumper.so" name="base_gazebo_ros_bumper_controller">
+                <!-- /bumper_states -->
+            </plugin>
+        </sensor>
+    </gazebo>
+
+</robot>

@@ -1,0 +1,10 @@
+hyperparameter:
+  gamma: 0.99         # 折扣因子
+  tau: 0.005          # 目标网络更新速率
+  policy_noise: 0.0   # 动作噪声的标准差
+  noise_clip: 0.5     # 动作噪声的裁剪上限
+  policy_freq: 2      # 策略网络的更新频率
+
+action:
+  min: -10
+  max: 10
