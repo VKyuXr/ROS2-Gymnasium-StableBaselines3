@@ -3,7 +3,7 @@ from launch import LaunchDescription
 
 def generate_launch_description():
     sb3_trainer_node = Node(
-        package="trainer",
+        package="drl_trainer",
         executable="sb3_trainer",
         output="screen",
     )

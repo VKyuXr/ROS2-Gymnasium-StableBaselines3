@@ -92,7 +92,9 @@ class LaserProcessor(Node):
             return
 
         # 提取坐标并计算距离
-        x, y, z = points.T
+        x = points["x"]
+        y = points["y"]
+        z = points["z"]
         distances = np.sqrt(x**2 + y**2 + z**2)
         
         # 距离过滤

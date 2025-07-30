@@ -8,8 +8,6 @@ setup(
     version='0.0.0',
     packages=[
         package_name,
-        package_name + '.rl_algorithm',
-        package_name + '.dl_model',
     ],
     data_files=[
         ('share/ament_index/resource_index/packages',
