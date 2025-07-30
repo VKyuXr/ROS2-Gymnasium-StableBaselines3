@@ -201,7 +201,7 @@
     <joint name="lidar_joint" type="fixed">
         <parent link="body_link"/>
         <child link="lidar_link"/>
-        <origin xyz="-0.1 0.0 0.05" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.1 0.0 0.05" rpy="0.0 0.0 3.1416"/>
     </joint>
 
     <link name="lidar_link">
@@ -255,7 +255,7 @@
     <gazebo reference="lidar_link">
         <material>Gazebo/Green</material>
         <sensor type="ray" name="lidar_sensor">
-            <pose>0 0 0 0 0 3.141593</pose>
+            <pose>0 0 0 0 0 0</pose>
             <visualize>true</visualize>
             <update_rate>40</update_rate>
             <ray>
@@ -316,7 +316,7 @@
         </plugin>
 
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>$(find agent_description)/config/diff_drive_controller.yaml</parameters>
+            <parameters>$(find agent_description)/config/differential_controller.yaml</parameters>
         </plugin>
     </gazebo>
 

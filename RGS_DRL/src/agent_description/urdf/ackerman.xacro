@@ -214,7 +214,7 @@
         <!-- 控制输入 -->
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
             <!-- /{controller_name}/commands -->
-            <parameters>$(find agent_description)/config/MAV_controller.yaml</parameters>
+            <parameters>$(find agent_description)/config/ackerman_controller.yaml</parameters>
         </plugin>
     </gazebo>
 

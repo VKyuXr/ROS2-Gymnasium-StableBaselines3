@@ -23,7 +23,7 @@ class TrainingNode(Node):
             name_prefix="model"        # 文件名前缀，例如 model_10000_steps
         )
 
-        self.get_logger().info("[TrainingNode] initialize PPO trainer...")
+        self.get_logger().info("[TrainingNode] initialize trainer...")
         policy_kwargs = dict(
             features_extractor_class=Extractor,
             features_extractor_kwargs=dict(features_dim=256),
@@ -43,18 +43,18 @@ class TrainingNode(Node):
         #     tensorboard_log="./tensorboard/"
         # )
         
-        # self.model = SAC(
-        #     policy="MultiInputPolicy",
-        #     env=self.env,
-        #     policy_kwargs=policy_kwargs,
-        #     verbose=1,
-        #     learning_rate=3e-4,
-        #     device="cuda",
-        #     buffer_size=100000,
-        #     batch_size=128,
-        #     train_freq=2,
-        #     tensorboard_log="./tensorboard/"
-        # )
+        self.model = SAC(
+            policy="MultiInputPolicy",
+            env=self.env,
+            policy_kwargs=policy_kwargs,
+            verbose=1,
+            learning_rate=3e-4,
+            device="cuda",
+            buffer_size=100000,
+            batch_size=128,
+            train_freq=2,
+            tensorboard_log="./tensorboard/"
+        )
 
         # action_space = self.env.action_space
         # print("动作空间:", action_space)
@@ -65,11 +65,11 @@ class TrainingNode(Node):
         #     device="cuda",
         # )
 
-        self.model = SAC.load(
-            path="./checkpoints/SAC-490kSteps",
-            env=self.env,
-            device="cuda",
-        )
+        # self.model = SAC.load(
+        #     path="./checkpoints/SAC-490kSteps",
+        #     env=self.env,
+        #     device="cuda",
+        # )
 
         self.get_logger().info("[TrainingNode] Starting training...")
         self.model.learn(
@@ -77,7 +77,7 @@ class TrainingNode(Node):
             callback=checkpoint_callback
         )
         self.get_logger().info("[TrainingNode] Training end...")
-        self.model.save("ppo_simple")
+        self.model.save("simple")
         self.get_logger().info("Training complete and model saved.")
 
 def main(args=None):

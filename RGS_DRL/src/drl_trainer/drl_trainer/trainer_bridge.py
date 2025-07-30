@@ -492,7 +492,8 @@ class TrainerBridge(Node):
     def reset(self):
         def reset_robot():
             req = SetEntityState.Request()
-            req.state.name = "MAV"
+            req.state.name = "differential_robot"
+            # req.state.name = "ackerman_robot"
             req.state.pose.position.x = float(0)
             req.state.pose.position.y = float(0)
             req.state.pose.position.z = float(0.1)

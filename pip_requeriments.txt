@@ -1,0 +1,2 @@
+numpy==1.26.4
+stable_baselines3==2.7.0

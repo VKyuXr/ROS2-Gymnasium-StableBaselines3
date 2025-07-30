@@ -2,7 +2,6 @@ from ament_index_python.packages import get_package_share_directory
 from std_msgs.msg import Float32MultiArray, Float64MultiArray
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy
-from array import array
 import rclpy
 import yaml
 import os
@@ -77,12 +76,11 @@ class AckermanForwarder(Node):
         # alpha_r = np.sign(omega) * abs(alpha * (velocity_r / (v + epsilon)))
 
         wheel_msg = Float64MultiArray()
-        wheel_msg.data = array('d', [velocity_l, velocity_r])
+        wheel_msg.data = [velocity_l, velocity_r]
         self.wheel_pub.publish(wheel_msg)
 
         steering_msg = Float64MultiArray()
-        # steering_msg.data = array('d', [alpha_l, alpha_r])
-        steering_msg.data = array('d', [alpha])
+        steering_msg.data = [alpha]
         self.steering_pub.publish(steering_msg)
 
 def main(args=None):

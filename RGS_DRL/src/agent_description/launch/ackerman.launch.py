@@ -30,38 +30,47 @@ def generate_launch_description():
                     PathJoinSubstitution([gazebo_ros_path, "launch", "gazebo.launch.py"])
                 ]),
                 launch_arguments={
-                    'world': world_path,
-                    'verbose': 'true',
+                    "world": world_path,
+                    "verbose": "true",
                     }.items()
              )
 
     # 启动 gazebo_ros.spawn_entity 节点
     spawn_entity_node = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
+        package="gazebo_ros",
+        executable="spawn_entity.py",
         arguments=[
-            '-topic', 'robot_description',
-            '-entity', 'ackerman_robot'
+            "-topic", "robot_description",
+            "-entity", "ackerman_robot"
         ],
-        output='screen'
+        output="screen"
     )
 
     # 加载反馈器
     load_joint_state_broadcaster = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'joint_state_broadcaster'],
-        output='screen'
+        # ros2 foxy
+        # cmd=["ros2", "control", "load_controller", "--set-state", "start", "joint_state_broadcaster"],
+        # ros2 humble
+        cmd=["ros2", "control", "load_controller", "--set-state", "active", "joint_state_broadcaster"],
+        output="screen"
     )
 
     # 加载驱动轮控制器
     load_wheel_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'wheel_controller'],
-        output='screen'
+        # ros2 foxy
+        # cmd=["ros2", "control", "load_controller", "--set-state", "start", "wheel_controller"],
+        # ros2 humble
+        cmd=["ros2", "control", "load_controller", "--set-state", "active", "wheel_controller"],
+        output="screen"
     )
 
     # 加载转向轮控制器
     load_steering_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'steering_controller'],
-        output='screen'
+        # ros2 foxy
+        # cmd=["ros2", "control", "load_controller", "--set-state", "start", "steering_controller"],
+        # ros2 humble
+        cmd=["ros2", "control", "load_controller", "--set-state", "active", "steering_controller"],
+        output="screen"
     )
 
     return LaunchDescription([

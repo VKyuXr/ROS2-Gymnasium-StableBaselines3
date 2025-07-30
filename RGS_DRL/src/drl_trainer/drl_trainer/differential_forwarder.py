@@ -2,7 +2,6 @@ from ament_index_python.packages import get_package_share_directory
 from std_msgs.msg import Float32MultiArray, Float64MultiArray
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy
-from array import array
 import rclpy
 import yaml
 import os
@@ -63,7 +62,7 @@ class DifferentialForwarder(Node):
         wheel_countinous = [v + omega/2, v - omega/2]
 
         control_msg = Float64MultiArray()
-        control_msg.data = array('d', [float(d) for d in wheel_countinous])
+        control_msg.data = [float(d) for d in wheel_countinous]
         self.cmd_pub.publish(control_msg)
 
 def main(args=None):
